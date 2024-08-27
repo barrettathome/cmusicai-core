@@ -41,7 +41,8 @@ for(int i = 0; i < targets.size(); i++) {
           builderImage = docker.build("${builderImageName}", "--build-arg BUILD_TARGET=${target} ci -f ci/Dockerfile.builder")
         }
 
-        builderImage.inside("-t") {
+        // Run the container as the 'anokas' user (UID: 1000)
+        builderImage.inside("-u 1000:1000 -t") {
           // copy source into fixed path
           // we must build under the same path everytime as otherwise caches won't work properly
           sh "cp -ra ${pwd}/. /anokas-src/"
@@ -97,4 +98,3 @@ for(int i = 0; i < targets.size(); i++) {
 }
 
 parallel tasks
-
