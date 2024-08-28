@@ -42,7 +42,7 @@ for(int i = 0; i < targets.size(); i++) {
         }
 
         // Remove the specific user setting, allowing defaults
-        builderImage.inside(-u root:root) {
+        builderImage.inside("-u root:root") {
           // copy source into fixed path
           // we must build under the same path everytime as otherwise caches won't work properly
           sh "cp -ra ${pwd}/. /anokas-src/"
