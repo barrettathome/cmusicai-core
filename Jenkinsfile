@@ -5,13 +5,13 @@
 // which are part of the Anokas repo will allow modification to the Jenkinsfile.
 
 def targets = [
-//   'win32',
+  'win32',
   'win64',
-//   'linux32',
-//   'linux64',
-//   'linux64_nowallet',
-//   'linux64_release',
-//   'mac',
+  'linux32',
+  'linux64',
+  'linux64_nowallet',
+  'linux64_release',
+  'mac',
 ]
 
 def tasks = [:]
