@@ -8,11 +8,7 @@ $(package)_dependencies=openssl zlib
 $(package)_linux_dependencies=freetype fontconfig libxcb
 $(package)_build_subdir=qtbase
 $(package)_qt_libs=corelib network widgets gui plugins testlib
-ifeq ($(build_os),darwin)
 $(package)_patches=fix_qt_pkgconfig.patch mac-qmake.conf fix_configure_mac.patch fix_no_printer.patch fix_rcc_determinism.patch xkb-default.patch no-xlib.patch
-else
-$(package)_patches=fix_qt_pkgconfig.patch fix_no_printer.patch fix_rcc_determinism.patch xkb-default.patch no-xlib.patch
-endif
 
 $(package)_qttranslations_file_name=qttranslations-$($(package)_suffix)
 $(package)_qttranslations_sha256_hash=9822084f8e2d2939ba39f4af4c0c2320e45d5996762a9423f833055607604ed8
@@ -78,7 +74,7 @@ $(package)_config_opts += -no-feature-printdialog
 $(package)_config_opts += -no-feature-concurrent
 $(package)_config_opts += -no-feature-xml
 
-ifneq ($(build_os),darwin)
+ifeq ($(build_os),darwin)
 $(package)_config_opts_darwin = -xplatform macx-clang-linux
 $(package)_config_opts_darwin += -device-option MAC_SDK_PATH=$(OSX_SDK)
 $(package)_config_opts_darwin += -device-option MAC_SDK_VERSION=$(OSX_SDK_VERSION)
@@ -125,7 +121,6 @@ define $(package)_extract_cmds
   tar --strip-components=1 -xf $($(package)_source_dir)/$($(package)_qttools_file_name) -C qttools
 endef
 
-define $(package)_preprocess_cmds
 define $(package)_preprocess_cmds
   sed -i.old "s|FT_Get_Font_Format|FT_Get_X11_Font_Format|" qtbase/src/platformsupport/fontdatabases/freetype/qfontengine_ft.cpp && \
   sed -i.old "s|updateqm.commands = \$$$$\$$$$LRELEASE|updateqm.commands = $($(package)_extract_dir)/qttools/bin/lrelease|" qttranslations/translations/translations.pro && \
