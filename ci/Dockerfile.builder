@@ -21,8 +21,8 @@ RUN pip3 install flake8
 # RUN git clone https://github.com/The-Anokas-Endeavor/anokas_hash
 # RUN cd anokas_hash && python3 setup.py install
 
-ARG USER_ID=1000
-ARG GROUP_ID=1000
+ARG USER_ID=1002
+ARG GROUP_ID=1002
 
 # add user with specified (or default) user/group ids
 ENV USER_ID ${USER_ID}
