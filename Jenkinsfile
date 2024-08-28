@@ -41,8 +41,8 @@ for(int i = 0; i < targets.size(); i++) {
           builderImage = docker.build("${builderImageName}", "--build-arg BUILD_TARGET=${target} ci -f ci/Dockerfile.builder")
         }
 
-        // Run the container as the 'anokas' user (UID: 1000)
-        builderImage.inside("-u 1000:1000 -t") {
+        // Remove the specific user setting, allowing defaults
+        builderImage.inside() {
           // copy source into fixed path
           // we must build under the same path everytime as otherwise caches won't work properly
           sh "cp -ra ${pwd}/. /anokas-src/"
