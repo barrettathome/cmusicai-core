@@ -50,20 +50,20 @@ for(int i = 0; i < targets.size(); i++) {
           // restore cache
           def hasCache = false
           try {
-            copyArtifacts(projectName: "anokas-anokas/${BRANCH_NAME}", optional: true, selector: lastSuccessful(), filter: "ci-cache-${target}.tar.gz")
+            copyArtifacts(projectName: "cmusicai-core/${BRANCH_NAME}", optional: true, selector: lastSuccessful(), filter: "ci-cache-${target}.tar.gz")
           } catch (Exception e) {
           }
           if (fileExists("ci-cache-${target}.tar.gz")) {
             hasCache = true
-            echo "Using cache from anokas-anokas/${BRANCH_NAME}"
+            echo "Using cache from cmusicai-core/${BRANCH_NAME}"
           } else {
             try {
-              copyArtifacts(projectName: 'anokas-anokas/develop', optional: true, selector: lastSuccessful(), filter: "ci-cache-${target}.tar.gz");
+              copyArtifacts(projectName: 'cmusicai-core/develop', optional: true, selector: lastSuccessful(), filter: "ci-cache-${target}.tar.gz");
             } catch (Exception e) {
             }
             if (fileExists("ci-cache-${target}.tar.gz")) {
               hasCache = true
-              echo "Using cache from anokas-anokas/develop"
+              echo "Using cache from cmusicai-core/develop"
             }
           }
 
